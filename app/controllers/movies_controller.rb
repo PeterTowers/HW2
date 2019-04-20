@@ -1,7 +1,7 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
-    @movies = Movie.all
+    @movies = Movie.order("#{sort_column} #{sort_direction}")
   end
 
   def show
@@ -43,5 +43,15 @@ class MoviesController < ApplicationController
     @movie.destroy
     flash[:notice] = "#{@movie.title} was deleted!"
     redirect_to movies_path
+  end
+
+  private
+
+  def sort_column
+    Movie.column_names.include?(params[:sort]) ? params[:sort] : "title"
+  end
+
+  def sort_direction
+    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
   end
 end

@@ -3,7 +3,10 @@ class MoviesController < ApplicationController
   def index
     # Initialize variable movies ordering by title ascending by default
     @movies = Movie.order("#{sort_column} #{sort_direction}")
-    @movies = @movies.rating(params[:rating]) if params[:rating].present?
+
+    # Apply rating filter only if there is a filter, so no need to set all
+    # checkboxes checked in order display all movies by default
+    @movies = @movies.rating(params[:ratings].keys) if params[:ratings].present?
   end
 
   def show

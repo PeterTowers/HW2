@@ -1,3 +1,14 @@
+# Repositório do homework 2
+Este repositório contém a tarefa do homework 2 (HW2) da disciplina Engenharia de Software, 1/2019, da Universidade de
+Brasília (UnB). O repositório é um _fork_ de https://github.com/Genaina/HW2 com as mudanças requisitadas no ambiente
+Aprender.
+
+This repository contains the assignment "Homework 2" from Software Engineering (Engenharia de Software) course, 1st
+semester of 2019, at Universidade de Brasília (UnB). The repository is a fork of https://github.com/Genaina/HW2 with
+the required changes from the assignment.
+
+Este repositório pertence a / This repo. belongs to: Pedro Lucas S. H. Torres - 16/0141575.
+
 <h1> Part 1: BDD Cucumber/Capybara Warm-up</h1>
 
 This folder implements some features of the RottenPotatoes website. Run cucumber on feature/AddMovie.feature and check if the scenario outcome is "green as a cucumber!". If not, make the appropriate fixes and make it green!

@@ -8,10 +8,10 @@ module MoviesHelper
   private
 
   def sort_column
-    params[:sort] || 'title'
+    params[:sort] || @column
   end
 
   def sort_direction
-    params[:direction] || 'asc'
+    params[:direction] || @direction
   end
 end

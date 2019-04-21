@@ -1,12 +1,23 @@
 # This file is app/controllers/movies_controller.rb
 class MoviesController < ApplicationController
   def index
+    # Initialize instance variables according to their existence
+    @column = params[:sort] || session[:sort]
+    @direction = params[:direction] || session[:direction]
+    @filter = params[:ratings] || session[:ratings]
+
+    if set_cookies?
+      session[:sort] = @column
+      session[:direction] = @direction
+      session[:ratings] = @filter
+    end
+
     # Initialize variable movies ordering by title ascending by default
     @movies = Movie.order("#{sort_column} #{sort_direction}")
 
     # Apply rating filter only if there is a filter, so no need to set all
     # checkboxes checked in order display all movies by default
-    @movies = @movies.rating(params[:ratings].keys) if params[:ratings].present?
+    @movies = @movies.rating(@filter.keys) if @filter.present?
   end
 
   def show
@@ -52,12 +63,17 @@ class MoviesController < ApplicationController
   # Method to sort column on click, accepting only title & release date in order
   # to avoid SQL injection. Defaults to title
   def sort_column
-    Movie.column_names.include?(params[:sort]) ? params[:sort] : "title"
+    Movie.column_names.include?(params[:sort]) ? @column : "title"
   end
 
   # Method to set column sorting direction on click, accepting only "asc" and
   # "desc" to avoid SQL injection. Defaults to "asc"
   def sort_direction
-    %w[asc desc].include?(params[:direction]) ? params[:direction] : "asc"
+    %w[asc desc].include?(params[:direction]) ? @direction : "asc"
+  end
+
+  def set_cookies?
+    params[:sort] != session[:sort] || params[:direction] !=
+      session[:direction] || params[:ratings] != session[:ratings]
   end
 end
